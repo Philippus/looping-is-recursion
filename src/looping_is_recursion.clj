@@ -39,8 +39,26 @@
       (empty? seq) (/ running-total number-of-items)
       :else (recur (+ running-total (first seq)) (+ number-of-items 1) (rest seq)))))
 
+(defn list-contains? [coll value]
+  (let [s (seq coll)]
+    (if s
+      (if (= (first s) value) true (recur (rest s) value))
+      false)))
+
+(defn toggle [a-set elem]
+  (if (list-contains? a-set elem)
+    (remove #{elem} a-set)
+    (cons elem (seq a-set))))
+
 (defn parity [a-seq]
-  ":(")
+  (loop [odd-set []
+         seq a-seq]
+    (if (empty? seq)
+      odd-set
+      (recur (toggle odd-set (first seq)) (rest seq)))))
+
+
+
 
 (defn fast-fibo [n]
   ":(")
