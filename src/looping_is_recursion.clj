@@ -57,12 +57,19 @@
       odd-set
       (recur (toggle odd-set (first seq)) (rest seq)))))
 
-
-
-
 (defn fast-fibo [n]
-  ":(")
+  (loop [a 0
+         b 1
+         n n]
+    (cond
+      (< n 0) a
+      (== n 0) a
+      :else (recur b (+ a b) (- n 1)))))
 
 (defn cut-at-repetition [a-seq]
-  [":("])
-
+  (loop [curset []
+         seq a-seq]
+    (cond
+      (empty? seq) curset
+      (list-contains? curset (first seq)) curset
+      :else (recur (conj curset (first seq)) (rest seq)))))
